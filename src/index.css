@@ -1,3 +1,7 @@
+/*
+    custom post-css configurations are not supported outside of a React framework
+    so css files with custom tailwind annotations will show unknown class errors even though they are valid
+ */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&family=Raleway:wght@100..900&family=Roboto:wght@100..900&display=swap');
 @tailwind base;
 @tailwind components;

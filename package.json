@@ -18,7 +18,7 @@
     "node": ">=18.0.0",
     "npm": ">=10.0.0"
   },
-  "main": "src/index.js",
+  "main": "src/index.jsx",
   "scripts": {
     "start": "webpack serve --mode development --open",
     "build": "webpack --mode production",

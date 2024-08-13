@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: path.join(__dirname, "src", "index.js"),
+    entry: path.join(__dirname, "src", "index.jsx"),
     output: {
       path:path.resolve(__dirname, "dist"),
     },
@@ -33,7 +33,19 @@ module.exports = {
           }
         ]
       },
-  devServer: {
-    port: 4000,
-  },
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        alias: {
+            "assets": path.resolve(__dirname, "src/assets"),
+            "components": path.resolve(__dirname, "src/components"),
+            "layouts": path.resolve(__dirname, "src/layouts"),
+            "providers": path.resolve(__dirname, "src/providers"),
+            "hooks": path.resolve(__dirname, "src/hooks"),
+            "middlewares": path.resolve(__dirname, "src/middlewares"),
+            "utils": path.resolve(__dirname, "src/utils"),
+        }
+    },
+    devServer: {
+        port: 4000,
+    },
 };

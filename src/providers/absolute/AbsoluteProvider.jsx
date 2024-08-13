@@ -18,7 +18,7 @@ export function AbsoluteProvider({ children }) {
 }
 
 AbsoluteProvider.propTypes = {
-    children: PropTypes.object.isRequired
+    children: PropTypes.array.isRequired
 }
 
 export function useAbsolute() {

@@ -1,10 +1,11 @@
 import React from 'react';
 import { useAuth } from 'providers/auth';
+import logo from 'assets/images/logo.png';
 
 const LoggedUserHeaderWrapper = () => {
     const {user} = useAuth();
     const welcomeMessage = `Hi, ${user.username}`;
-    const profilePicture = user?.profilePictureUrl || 'src/assets/images/logo.png';
+    const profilePicture = user?.profilePictureUrl || logo;
 
     return (
         <>

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSocketData } from 'providers/socket';
 import { useAuth } from 'providers/auth';
+import logo from 'assets/images/logo.png';
 import moment from 'moment';
 moment().format();
 
 const ContactCard = ({id, username, profilePictureUrl, onClick, activeContactId, lastMessage}) => {
-    const profilePicture = profilePictureUrl || 'src/assets/images/logo.png';
+    const profilePicture = profilePictureUrl || logo;
     const auth = useAuth();
     const socketData = useSocketData();
     const [isOnline, setIsOnline] = useState(false);

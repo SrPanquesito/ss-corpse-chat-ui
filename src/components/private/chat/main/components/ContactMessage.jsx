@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSocketData } from 'providers/socket';
+import logo from 'assets/images/logo.png';
 import moment from 'moment';
 moment().format();
 
 const ContactMessage = ({id, content, date, profilePictureUrl, imageUrl}) => {
-    const profilePicture = profilePictureUrl || 'src/assets/images/logo.png';
+    const profilePicture = profilePictureUrl || logo;
     const refRender = useRef();
     const socketData = useSocketData();
 

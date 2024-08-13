@@ -5,13 +5,14 @@ import ButtonDarkmode from 'components/ButtonDarkmode';
 import { useSocketData } from 'providers/socket';
 import { useAuth, useDispatchAuth } from 'providers/auth';
 import { useDispatchAbsolute } from 'providers/absolute';
+import logo from 'assets/images/logo.png';
 import { socket } from 'utils/socket';
 import { ROUTES } from 'utils/constants';
 
 const ConversationHeaderWrapper = () => {
     const chat = useChat();
     const socketData = useSocketData();
-    const profilePicture = chat.activeContact?.profilePictureUrl || 'src/assets/images/logo.png';
+    const profilePicture = chat.activeContact?.profilePictureUrl || logo;
     const [isOnline, setIsOnline] = useState(false);
     const auth = useAuth();
     const dispatchAuth = useDispatchAuth();

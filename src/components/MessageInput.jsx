@@ -3,6 +3,7 @@ import './ComponentStyles.css';
 import { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatchAbsolute } from 'providers/absolute';
+import logo from 'assets/images/logo.png';
 
 const MessageInput = ({id, placeholder, value, onChangeHandler}) => {
     const dispatchAbsolute = useDispatchAbsolute();
@@ -54,7 +55,7 @@ const MessageInput = ({id, placeholder, value, onChangeHandler}) => {
                 value={value}
             ></textarea>
             <div className="absolute right-3 cursor-pointer hover:brightness-125" onClick={toggleEmojiPicker}>
-                <img src="src/assets/images/logo.png"
+                <img src={logo}
                     className="size-6"
                     alt="" />
             </div>

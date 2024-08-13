@@ -5,6 +5,7 @@ import FormButton from 'components/form/FormButton';
 import { useDispatchAuth, useAuth } from 'providers/auth/AuthProvider';
 // import { useAlert } from 'react-alert'
 import { ROUTES } from 'utils/constants';
+import logo from 'assets/images/logo.png';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -58,7 +59,7 @@ const Login = () => {
                 <div className="flex flex-row justify-between items-center w-full md:justify-center">
                     <h3 className="text-sky-800 dark:text-zinc-100">Log in</h3>
                     <img className="w-12 md:hidden" 
-                        src="src/assets/images/logo.png" alt="" />
+                        src={logo} alt="" />
                 </div>
                 <form className="w-full space-y-4 py-4">
                     <div className="space-y-2">

@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&family=Raleway:wght@100..900&family=Roboto:wght@100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply font-poppins
+    }
+    h1 {
+        @apply font-raleway font-bold text-4xl
+    }
+    h2 {
+        @apply font-raleway font-semibold text-3xl
+    }
+    h3 {
+        @apply font-raleway font-semibold text-2xl
+    }
+    h4 {
+        @apply font-raleway font-semibold text-xl
+    }
+    h5 {
+        @apply font-raleway font-semibold text-lg
+    }
+    h6 {
+        @apply font-raleway font-semibold
+    }
+}

@@ -133,10 +133,12 @@ Icons used:
 - [x] Fix linter errors and warnings
 - [x] Configure jest
 - [x] Migrate to webpack
+- [x] Deploy build to AWS so we can be sure webpack migration worked
 
 ## To-Do
 
-- [ ] Deploy build to AWS so we can be sure webpack migration worked
+- [ ] Configure Eslint and Husky
+- [ ] Configure Jest
 - [ ] Change react-alert for notification absolute on login and register actions
 - [ ] Unit tests 90% + coverage
 - [ ] Form validation in Register page

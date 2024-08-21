@@ -5,6 +5,6 @@ export const ROUTES = {
 }
 
 export const URLS = {
-    SERVER_BASE_URL: 'http://localhost:5500',
-    SOCKET_BASE_URL: 'ws://localhost:7200'
+    SERVER_BASE_URL: process.env.SERVER_BASE_URL,
+    SOCKET_BASE_URL: process.env.SOCKET_BASE_URL,
 }

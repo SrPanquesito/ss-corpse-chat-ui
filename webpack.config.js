@@ -16,10 +16,13 @@ module.exports = {
     entry: path.join(__dirname, "src", "index.jsx"),
     output: {
       path:path.resolve(__dirname, "dist"),
+      filename: 'main.js', // Ensure the output filename matches your HTML script reference
+      publicPath: '/' // Ensures the asset paths are resolved correctly
     },
     plugins: [
       new HtmlWebpackPlugin({
         template: path.join(__dirname, "public", "index.html"),
+        filename: 'index.html' // Ensures the correct filename is used
       }),
       new webpack.DefinePlugin(envKeys)
     ],
@@ -41,7 +44,14 @@ module.exports = {
           },
           {
             test: /\.(jpe?g|png|gif|svg)$/i, 
-            loader: 'file-loader',
+            use: [
+              {
+                loader: 'file-loader',
+                options: {
+                  name: '[path][name].[ext]' // Keeps the file structure intact in the output
+                }
+              }
+            ]
           }
         ]
       },

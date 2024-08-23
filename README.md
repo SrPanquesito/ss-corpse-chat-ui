@@ -134,18 +134,18 @@ Icons used:
 - [x] Configure jest
 - [x] Migrate to webpack
 - [x] Deploy build to AWS so we can be sure webpack migration worked
+- [x] Change react-alert for notification absolute on login and register actions
+- [x] Limit calls to BE when sending message
 
 ## To-Do
 
 - [ ] Configure Eslint and Husky
 - [ ] Configure Jest
-- [ ] Change react-alert for notification absolute on login and register actions
 - [ ] Unit tests 90% + coverage
 - [ ] Form validation in Register page
 - [ ] Limit calls to BE in Register page
 - [ ] Form validation in Login page
 - [ ] Limit calls to BE in Login page
-- [ ] Limit calls to BE when sending message
 - [ ] Send more than 1 image
 - [ ] File handling
 

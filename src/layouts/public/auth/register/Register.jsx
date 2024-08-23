@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import FormInputField from 'components/form/FormInputField';
 import FormButton from 'components/form/FormButton';
 import { useDispatchAuth, useAuth } from 'providers/auth/AuthProvider';
-// import { useAlert } from 'react-alert'
+import { useDispatchAbsolute } from 'providers/absolute/AbsoluteProvider';
 import { ROUTES } from 'utils/constants';
 import logo from 'assets/images/logo.png';
 
@@ -20,17 +20,23 @@ const Register = () => {
     const [loadImage, setLoadImage] = useState('');
     const dispatchAuth = useDispatchAuth();
     const {user: authenticatedUser, error: authenticatedError, isAuthenticated} = useAuth();
-    // const alert = useAlert();
+    const dispatchAbsolute = useDispatchAbsolute();
 
     useEffect(() => {
         if (isAuthenticated && authenticatedUser?.id) {
-            // alert.success('Registration successful');
+            dispatchAbsolute({ type: 'notificationalert/show', notificationAlertOptions: {
+                type: 'success',
+                message: 'Registration successful'
+            }});
             setTimeout(() => {
                 navigate(ROUTES.CHAT_ROUTE);
             }, 2000);
         }
         if (authenticatedError?.message) {
-            // alert.error(authenticatedError.message);
+            dispatchAbsolute({ type: 'notificationalert/show', notificationAlertOptions: {
+                type: 'error',
+                message: authenticatedError.message
+            }});
         }
     }, [authenticatedError, isAuthenticated]);
 

@@ -11,6 +11,7 @@ import { uploadSingleImageToS3 } from 'providers/chat/ChatActions';
 const SendMessageWrapper = () => {
     const [messageText, setMessageText] = useState('');
     const [messageFile, setMessageFile] = useState('');
+    const [disableSendButton, setDisableSendButton] = useState(false);
     const chat = useChat();
     const auth = useAuth();
     const dispatchChat = useDispatchChat();
@@ -38,6 +39,7 @@ const SendMessageWrapper = () => {
         setMessageFile('');
         dispatchAbsolute({ type: 'imagepreviewdisplay/hide' });
         dispatchAbsolute({ type: 'imagepreviewdisplay/clear', images: [] });
+        setTimeout(() => setDisableSendButton(false), 500);
     };
 
     const messageInputHandler = (e) => {
@@ -47,6 +49,7 @@ const SendMessageWrapper = () => {
 
     const sendMessage = async (e) => {
         e.preventDefault();
+        if (disableSendButton) return;
 
         let formData = new FormData();
         let imageUrl = '';
@@ -59,6 +62,11 @@ const SendMessageWrapper = () => {
             imageUrl = data;
             formData.append('imageUrl', imageUrl);
         }
+
+        // Do not allow empty messages to be sent
+        if (messageText === '' && imageUrl === '') return;
+        // Disable send button to prevent multiple calls
+        setDisableSendButton(true);
 
         formData.append('message', messageText);
         formData = objectToFormData('sender', auth.user, formData);
@@ -112,6 +120,7 @@ const SendMessageWrapper = () => {
                     placeholder="Type a message..."
                     value={messageText}
                     onChangeHandler={messageInputHandler}
+                    onEnterHandler={sendMessage}
                 />
             </div>
             <div>

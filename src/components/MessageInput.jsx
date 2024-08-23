@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useDispatchAbsolute } from 'providers/absolute';
 import logo from 'assets/images/logo.png';
 
-const MessageInput = ({id, placeholder, value, onChangeHandler}) => {
+const MessageInput = ({id, placeholder, value, onChangeHandler, onEnterHandler}) => {
     const dispatchAbsolute = useDispatchAbsolute();
     const textAreaRef = useRef(null);
 
@@ -27,6 +27,14 @@ const MessageInput = ({id, placeholder, value, onChangeHandler}) => {
 
     const toggleEmojiPicker = () => {
         dispatchAbsolute({ type: 'emojipicker/toggle' });
+    };
+
+    const onKeyDownPrehandler = (e) => {
+        // Enter key pressed
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            onEnterHandler(e);
+        }
     };
 
     return (
@@ -52,6 +60,7 @@ const MessageInput = ({id, placeholder, value, onChangeHandler}) => {
                 ref={textAreaRef}
                 placeholder={placeholder}
                 onChange={onChangeHandler}
+                onKeyDown={onKeyDownPrehandler}
                 value={value}
             ></textarea>
             <div className="absolute right-3 cursor-pointer hover:brightness-125" onClick={toggleEmojiPicker}>
@@ -67,7 +76,8 @@ MessageInput.propTypes = {
     id: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
-    onChangeHandler: PropTypes.func.isRequired
+    onChangeHandler: PropTypes.func.isRequired,
+    onEnterHandler: PropTypes.func.isRequired
 }
 
 export default MessageInput

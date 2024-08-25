@@ -29,6 +29,14 @@ module.exports = [
     },
   },
   {
+    files: ["**/*.test.{js,jsx,ts,tsx}"],
+    languageOptions: {
+      globals: {
+        ...globals.jest
+      }
+    }
+  },
+  {
     ignores: [".husky/*", "public/*", "coverage/*", "dist/*"],
   },
   pluginJs.configs.recommended,

@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "baseUrl": "src", // Base directory for resolving non-relative module names
+      "paths": {
+        "assets/*": ["assets/*"],
+        "components/*": ["components/*"],
+        "layouts/*": ["layouts/*"],
+        "providers/*": ["providers/*"],
+        "hooks/*": ["hooks/*"],
+        "middlewares/*": ["middlewares/*"],
+        "utils/*": ["utils/*"]
+      }
+    },
+    "include": ["src"] // Include all files in the src directory
+}

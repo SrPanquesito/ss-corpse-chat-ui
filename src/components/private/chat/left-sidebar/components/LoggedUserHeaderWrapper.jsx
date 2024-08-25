@@ -25,7 +25,8 @@ const LoggedUserHeaderWrapper = () => {
             </div>
             <div className="hidden md:flex items-center w-full p-3 gap-2">
                 <div className="flex items-center relative">
-                    <div style={{backgroundImage: 'url(' + profilePicture + ')'}}
+                    <div role="img" 
+                        style={{backgroundImage: 'url(' + profilePicture + ')'}}
                         className={`
                             bg-cover
                             bg-center 

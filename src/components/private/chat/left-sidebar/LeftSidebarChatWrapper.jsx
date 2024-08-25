@@ -13,6 +13,7 @@ const LeftSidebarChatWrapper = () => {
         const { value } = e.target;
         setSearchText(value);
 
+        /* istanbul ignore else*/
         if (chat.allContacts?.length > 0) {
             const filteredItems = chat.allContacts.filter((contact) =>
                 contact.username.toLowerCase().includes(value.toLowerCase())

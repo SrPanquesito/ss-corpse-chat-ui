@@ -51,7 +51,9 @@ const ContactCard = ({id, username, profilePictureUrl, onClick, activeContactId,
     }
 
     return (
-        <div onClick={onClick}
+        <div data-testid={`contact-button-${id}`}
+            role="button"
+            onClick={onClick}
             className={`
                 ${id === activeContactId ? 'border-l-4 border-sky-500 bg-slate-200 dark:bg-slate-700 ' : ' '}
                 ${(msg.status === 'unseen') ? 'bg-blue-200 dark:bg-slate-900 ' : ' '}
@@ -63,7 +65,8 @@ const ContactCard = ({id, username, profilePictureUrl, onClick, activeContactId,
                 transition-all
             `}>
             <div className="flex items-center relative">
-                <div style={{backgroundImage: 'url(' + profilePicture + ')'}}
+                <div role="img"
+                    style={{backgroundImage: 'url(' + profilePicture + ')'}}
                     className={`
                         bg-cover
                         bg-center 
@@ -74,7 +77,7 @@ const ContactCard = ({id, username, profilePictureUrl, onClick, activeContactId,
                         shadow-button
                     `}></div>
                 { isOnline &&
-                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-[50%] border-2 border-white"></div>
+                    <div role="status" className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-[50%] border-2 border-white"></div>
                 }
             </div>
             <div className="flex flex-col justify-center w-6 md:w-3/4">

@@ -31,6 +31,7 @@ const FormInputField = ({id, label, placeholder, type, value, onChangeHandler}) 
                     placeholder={placeholder}
                     value={value}
                     onChange={onChangeHandler}
+                    alt={type + "-input"}
                 />
                 :
                 <div className="flex items-center space-x-2">
@@ -66,6 +67,7 @@ const FormInputField = ({id, label, placeholder, type, value, onChangeHandler}) 
                         id={id} 
                         name={id}
                         onChange={onChangeHandler}
+                        alt="file-input"
                     />
                 </div>
             }

@@ -124,7 +124,8 @@ const SendMessageWrapper = () => {
                 />
             </div>
             <div>
-                <svg onClick={sendMessage}
+                <svg data-testid="send-message-button"
+                    onClick={sendMessage}
                     className="size-7 transition-all
                         text-sky-700
                         cursor-pointer

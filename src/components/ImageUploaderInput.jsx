@@ -9,6 +9,7 @@ const ImageUploaderInput = ({ onChangeHandler, onClickHandler }) => {
                 name="image-upload-icon"
                 type="file"
                 className="hidden"
+                data-testid="image-upload-icon"
                 onChange={onChangeHandler}
                 onClick={onClickHandler}
             />

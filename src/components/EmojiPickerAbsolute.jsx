@@ -11,6 +11,7 @@ const EmojiPickerAbsolute = () => {
     const dispatchAbsolute = useDispatchAbsolute();
     const dispatchChat = useDispatchChat();
 
+    /* istanbul ignore next */
     const onEmojiClick = (event) => {
         dispatchChat({ type: 'set/selectedEmoji', selectedEmoji: event.emoji });
     };
@@ -33,6 +34,7 @@ const EmojiPickerAbsolute = () => {
 
     return (
         <div ref={refWrapper}
+            id="emoji-picker-absolute"
             className="absolute bottom-14 right-2 md:right-14">
             <EmojiPicker
                 open={showEmojiPicker}

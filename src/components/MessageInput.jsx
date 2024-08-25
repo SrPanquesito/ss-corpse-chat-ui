@@ -65,6 +65,7 @@ const MessageInput = ({id, placeholder, value, onChangeHandler, onEnterHandler})
             ></textarea>
             <div className="absolute right-3 cursor-pointer hover:brightness-125" onClick={toggleEmojiPicker}>
                 <img src={logo}
+                    role="img"
                     className="size-6"
                     alt="" />
             </div>

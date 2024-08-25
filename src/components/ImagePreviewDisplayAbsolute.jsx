@@ -15,14 +15,16 @@ const ImagePreviewDisplayAbsolute = () => {
     }, []);
 
     useEffect(() => {
-        console.log(images);
+        // console.log(images);
     }, [images]);
 
     useEffect(() => {
         setPosition([positionCoords[0] - 75, positionCoords[1] - 100]);
     }, [showImagePreviewDisplay]);
 
-    const handleClickOutside = event => {
+    /* istanbul ignore next */
+    const handleClickOutside = (event) => {
+        // Not used for now - Remove if not needed
         if (refWrapper.current && !refWrapper.current.contains(event.target)) {
             if (refWrapper.current.clientHeight > 0) {
                 // Clicked outside and picker is visible in UI
@@ -33,6 +35,7 @@ const ImagePreviewDisplayAbsolute = () => {
 
     return (
         <div ref={refWrapper}
+            role="dialog"
             className="absolute z-50"
             style={{
                 left: position[0],
@@ -73,7 +76,8 @@ const ImagePreviewDisplayAbsolute = () => {
                         images && images.length > 0 ? images.map((file) => (
                             <div key={images.indexOf(file)}
                                 className="flex flex-row justify-center items-center">
-                                <div style={{backgroundImage: 'url(' + file + ')'}}
+                                <div role="img"
+                                    style={{backgroundImage: 'url(' + file + ')'}}
                                     className={`
                                         border
                                         border-sky-200

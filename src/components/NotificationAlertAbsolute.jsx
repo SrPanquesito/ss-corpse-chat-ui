@@ -47,7 +47,8 @@ const NotificationAlertAbsolute = () => {
                 absolute right-2 top-2
             `}
         >
-            <div className={`
+            <div role="alertdialog"
+                className={`
                     ${notificationAlertOptions.type === 'success' && success}
                     ${notificationAlertOptions.type === 'error' && error}
                     ${notificationAlertOptions.type === 'warning' && warning}

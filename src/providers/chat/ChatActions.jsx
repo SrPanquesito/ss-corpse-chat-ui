@@ -27,7 +27,7 @@ const getAllMessagesByContactId = async ({ id }) => {
     try {
         const response = await axios.get(SERVER_URL + `/api/chat/contact/${id}/messages`);
         let { data } = response.data;
-        data = Array.isArray(data) ? data : [];
+        data = data ? data : [];
 
         return {
             data,

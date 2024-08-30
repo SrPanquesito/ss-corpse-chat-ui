@@ -11,7 +11,7 @@ const socketValues = {
   newMessage: null
 };
 
-function socketReducer(prev, action) {
+export function socketReducer(prev, action) {
   switch (action.type) {
       case 'connect': {
         return {

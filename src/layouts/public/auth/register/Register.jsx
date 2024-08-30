@@ -46,16 +46,21 @@ const Register = () => {
     };
 
     const fileHandler = (e) => {
+        const file = e.target.files[0];
+
         if (e.target.files.length !== 0) {
             const file = e.target.files[0];
             setForm({ ...form, [e.target.id]: file });
         }
 
         const reader = new FileReader();
+        /* istanbul ignore next */
         reader.onload = () => {
             setLoadImage(reader.result);
         };
-        reader.readAsDataURL(e.target.files[0]);
+        if (file) {
+            reader.readAsDataURL(file);
+        }
     };
 
     const submitForm = (e) => {

@@ -114,7 +114,20 @@ describe('SendMessageWrapper', () => {
         }));
     });
 
-    test('calls onChangeHandler when image upload icon is interacted with', async () => {
+    test('calls onClickHandler when image upload icon is interacted with', async () => {
+        const { container } = render(<SendMessageWrapper />);
+        const imageUploadIcon = container.querySelector("#image-upload-icon");
+        
+        // Simulate click event
+        fireEvent.click(imageUploadIcon);
+        await waitFor (() => {
+            expect(mockDispatchAbsolute).toHaveBeenCalledWith(expect.objectContaining({
+                type: 'imagepreviewdisplay/show'
+            }));
+        });
+    });
+
+    test('calls onFileUpload when image upload icon is interacted with', async () => {
         render(<SendMessageWrapper />);
         const imageUploadIcon = screen.getByTestId("image-upload-icon");
 
@@ -129,16 +142,15 @@ describe('SendMessageWrapper', () => {
         });
     });
 
-    test('calls onChangeHandler when image upload icon is interacted with', async () => {
-        const { container } = render(<SendMessageWrapper />);
-        const imageUploadIcon = container.querySelector("#image-upload-icon");
-        
-        // Simulate click event
-        fireEvent.click(imageUploadIcon);
+    test('calls onFileUpload when image upload icon is interacted with - empty file array', async () => {
+        render(<SendMessageWrapper />);
+        const imageUploadIcon = screen.getByTestId("image-upload-icon");
+
+        // Simulate change event
+        fireEvent.change(imageUploadIcon, { target: { files: [] } });
+
         await waitFor (() => {
-            expect(mockDispatchAbsolute).toHaveBeenCalledWith(expect.objectContaining({
-                type: 'imagepreviewdisplay/show'
-            }));
+            expect(mockDispatchAbsolute).not.toHaveBeenCalled();
         });
     });
 });

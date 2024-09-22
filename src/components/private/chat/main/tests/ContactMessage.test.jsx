@@ -20,14 +20,14 @@ describe('ContactMessage', () => {
     Element.prototype.scrollIntoView = jest.fn();
   });
 
-  it('renders correctly with content and imageUrl', () => {
+  it('renders correctly with content and previewImageUrl', () => {
     render(
       <ContactMessage
         id="123"
         content="Hello, world!"
         date={date}
         profilePictureUrl="https://example.com/profile.jpg"
-        imageUrl="https://example.com/image.jpg"
+        previewImageUrl="https://example.com/image.jpg"
       />
     );
     expect(screen.getByText('Hello, world!')).toBeInTheDocument();
@@ -46,13 +46,13 @@ describe('ContactMessage', () => {
     expect(screen.getByText('Hello, world!')).toBeInTheDocument();
   });
 
-  it('renders correctly with only imageUrl', () => {
+  it('renders correctly with only previewImageUrl', () => {
     render(
       <ContactMessage
         id="123"
         date={date}
         profilePictureUrl="https://example.com/profile.jpg"
-        imageUrl="https://example.com/image.jpg"
+        previewImageUrl="https://example.com/image.jpg"
       />
     );
     expect(screen.getByRole('img', { name: '' })).toHaveAttribute('src', 'https://example.com/image.jpg');

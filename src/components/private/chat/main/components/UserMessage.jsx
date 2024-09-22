@@ -4,7 +4,7 @@ import { useChat } from 'providers/chat';
 import moment from 'moment';
 moment().format();
 
-const UserMessage = ({id, content, date, imageUrl}) => {
+const UserMessage = ({id, content, date, previewImageUrl}) => {
     const refRender = useRef();
     const chat = useChat();
 
@@ -30,13 +30,13 @@ const UserMessage = ({id, content, date, imageUrl}) => {
                 dark:text-slate-400
                 dark:shadow-gray-900 
                 ">
-                    { (imageUrl && content) && (<>
-                        <img src={imageUrl} className='md:max-w-md rounded-md'></img>
+                    { (previewImageUrl && content) && (<>
+                        <img src={previewImageUrl} className='md:max-w-md rounded-md'></img>
                         <p className="text-sm pt-2">{content}</p>
                     </>)
                     }
-                    { (imageUrl && !content) && <img src={imageUrl} className='md:max-w-md rounded-md'></img> }
-                    { (!imageUrl && content) && <p className="text-sm">{content}</p> }
+                    { (previewImageUrl && !content) && <img src={previewImageUrl} className='md:max-w-md rounded-md'></img> }
+                    { (!previewImageUrl && content) && <p className="text-sm">{content}</p> }
             </div>
             <span className="
                 pr-1
@@ -55,7 +55,7 @@ UserMessage.propTypes = {
     id: PropTypes.string.isRequired,
     content: PropTypes.string,
     date: PropTypes.string.isRequired,
-    imageUrl: PropTypes.string
+    previewImageUrl: PropTypes.string
 }
 
 export default UserMessage;

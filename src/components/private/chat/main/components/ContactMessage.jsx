@@ -5,7 +5,7 @@ import logo from 'assets/images/logo.png';
 import moment from 'moment';
 moment().format();
 
-const ContactMessage = ({id, content, date, profilePictureUrl, imageUrl}) => {
+const ContactMessage = ({id, content, date, profilePictureUrl, previewImageUrl}) => {
     const profilePicture = profilePictureUrl || logo;
     const refRender = useRef();
     const socketData = useSocketData();
@@ -36,13 +36,13 @@ const ContactMessage = ({id, content, date, profilePictureUrl, imageUrl}) => {
                     dark:text-slate-400
                     dark:shadow-gray-900 
                     ">
-                        { (imageUrl && content) && (<>
-                            <img src={imageUrl} className='md:max-w-md rounded-md'></img>
+                        { (previewImageUrl && content) && (<>
+                            <img src={previewImageUrl} className='md:max-w-md rounded-md'></img>
                             <p className="text-sm pt-2">{content}</p>
                         </>)
                         }
-                        { (imageUrl && !content) && <img src={imageUrl} className='md:max-w-md rounded-md'></img> }
-                        { (!imageUrl && content) && <p className="text-sm">{content}</p> }
+                        { (previewImageUrl && !content) && <img src={previewImageUrl} className='md:max-w-md rounded-md'></img> }
+                        { (!previewImageUrl && content) && <p className="text-sm">{content}</p> }
                 </div>
                 <span className="
                     pl-1
@@ -63,7 +63,7 @@ ContactMessage.propTypes = {
     content: PropTypes.string,
     date: PropTypes.string.isRequired,
     profilePictureUrl: PropTypes.string,
-    imageUrl: PropTypes.string
+    previewImageUrl: PropTypes.string
 }
 
 export default ContactMessage

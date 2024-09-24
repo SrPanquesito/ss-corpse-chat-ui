@@ -55,6 +55,7 @@ const SendMessageWrapper = () => {
         let imageUrl = '';
         const file = messageFile || '';
         formData.append('file', file);
+        formData.append('username', auth.user.username);
 
         // Upload image to S3 and send image Url to socket and message creation in DB
         if (file) {

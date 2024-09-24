@@ -63,7 +63,7 @@ const ConversationAreaWrapper = () => {
                                 content={msg.text}
                                 previewImageUrl={msg.thumbnailUrl || msg.imageUrl}
                                 date={msg.createdAt}
-                                profilePictureUrl={chat.activeContact.profilePictureUrl}
+                                profilePictureUrl={chat.activeContact.profilePictureThumbnailUrl || chat.activeContact.profilePictureUrl}
                             />
                         )
                     }

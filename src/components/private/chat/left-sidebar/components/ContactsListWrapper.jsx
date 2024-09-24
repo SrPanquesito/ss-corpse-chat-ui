@@ -36,7 +36,7 @@ const ContactsListWrapper = () => {
                         id={contact.id}
                         activeContactId={chat.activeContact?.id}
                         username={contact.username}
-                        profilePictureUrl={contact.profilePictureUrl}
+                        profilePictureUrl={contact.profilePictureThumbnailUrl || contact.profilePictureUrl}
                         lastMessage={contact.lastMessage}
                         onClick={() => onContactClick(contact)}
                     />

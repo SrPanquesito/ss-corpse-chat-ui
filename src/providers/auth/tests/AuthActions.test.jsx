@@ -130,6 +130,7 @@ describe('AuthActions', () => {
                 email: decodedToken.email,
                 username: decodedToken.username,
                 profilePictureUrl: decodedToken.profilePictureUrl,
+                profilePictureThumbnailUrl: '',
                 status: decodedToken.status
             });
         });

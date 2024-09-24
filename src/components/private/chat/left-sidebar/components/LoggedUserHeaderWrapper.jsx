@@ -5,7 +5,7 @@ import logo from 'assets/images/logo.png';
 const LoggedUserHeaderWrapper = () => {
     const {user} = useAuth();
     const welcomeMessage = `Hi, ${user.username}`;
-    const profilePicture = user?.profilePictureUrl || logo;
+    const profilePicture = user?.profilePictureThumbnailUrl || user?.profilePictureUrl || logo;
 
     return (
         <>

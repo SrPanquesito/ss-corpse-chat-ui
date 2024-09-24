@@ -76,6 +76,7 @@ const authStatusFromCookies = () => {
                 email: tokenDecode.email,
                 username: tokenDecode.username,
                 profilePictureUrl: tokenDecode.profilePictureUrl,
+                profilePictureThumbnailUrl: tokenDecode.profilePictureThumbnailUrl || '',
                 status: tokenDecode.status
             }
         }

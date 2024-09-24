@@ -12,7 +12,7 @@ import { ROUTES } from 'utils/constants';
 const ConversationHeaderWrapper = () => {
     const chat = useChat();
     const socketData = useSocketData();
-    const profilePicture = chat.activeContact?.profilePictureUrl || logo;
+    const profilePicture = chat.activeContact?.profilePictureThumbnailUrl || chat.activeContact?.profilePictureUrl || logo;
     const [isOnline, setIsOnline] = useState(false);
     const auth = useAuth();
     const dispatchAuth = useDispatchAuth();

@@ -7,5 +7,6 @@ import { URLS } from 'utils/constants';
 // const URL = import.meta.env.NODE_ENV === 'production' ? undefined : SOCKET_URL;
 
 export const socket = io(URLS.SOCKET_BASE_URL, {
-    autoConnect: false
+    autoConnect: false,
+    transports: ["websocket", "polling"]
 });

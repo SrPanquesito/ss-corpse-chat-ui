@@ -53,6 +53,7 @@ export function SocketProvider({ children }) {
     const [socketConfig, dispatch] = useReducer(socketReducer, socketValues);
 
     function onConnect() {
+      console.log(`connected with transport ${socket.io.engine.transport.name}`);
       dispatch({ type: 'connect' });
     }
 

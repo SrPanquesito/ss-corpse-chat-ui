@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useChat, useDispatchChat } from 'providers/chat';
 import { useAuth } from 'providers/auth';
 import UserMessage from './UserMessage';
@@ -12,13 +12,17 @@ const ConversationAreaWrapper = () => {
     const dispatchChat = useDispatchChat();
     const socketData = useSocketData();
     const dispatchAbsolute = useDispatchAbsolute();
+    const messagesEndRef = useRef(null);
 
     useEffect(() => {
+        // Initial messages fetch
         if (chat.activeContact?.id) {
             dispatchChat({
                 type: 'http/get/contact/messages',
                 payload: {
-                    id: chat.activeContact.id
+                    id: chat.activeContact.id,
+                    page: 1,
+                    pageSize: 20
                 }
             });
         }
@@ -51,8 +55,33 @@ const ConversationAreaWrapper = () => {
         }
     }, [socketData.newMessage]);
 
+    const loadMoreMessages = () => {
+        if (chat.pagination?.currentPage < chat.pagination?.totalPages) {
+            dispatchChat({
+                type: 'http/get/contact/more-messages',
+                payload: {
+                    id: chat.activeContact.id,
+                    page: chat.pagination.currentPage + 1,
+                    pageSize: chat.pagination.pageSize
+                }
+            });
+        }
+    };
+
+    const handleScroll = (event) => {
+        const { scrollTop, scrollHeight, clientHeight } = event.target;
+        let isAtTop = scrollHeight - clientHeight <= scrollTop*-1;
+
+        if (isAtTop && chat.pagination?.currentPage < chat.pagination?.totalPages) {
+            loadMoreMessages();
+        }
+    };
+
     return (
-        <div className="flex flex-col-reverse justify-start w-full h-full overflow-x-hidden overflow-y-auto px-3 py-4 gap-2">
+        <div className="flex flex-col-reverse justify-start w-full h-full overflow-x-hidden overflow-y-auto px-3 py-4 gap-2"
+            onScroll={handleScroll}
+            ref={messagesEndRef}
+        >
             {
                 chat.activeMessages && chat.activeMessages.length > 0 ? chat.activeMessages.map((msg) => {
                     if (msg.senderId === chat.activeContact.id) {

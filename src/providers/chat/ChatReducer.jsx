@@ -9,6 +9,7 @@ export const chatDefaultValues = {
     lastMessageSent: null,
     sendMessageSuccess: false,
     selectedEmoji: '',
+    pagination: {},
     error: null,
 };
 
@@ -26,11 +27,22 @@ export async function chatReducer(prev, action) {
             };
         }
         case 'http/get/contact/messages': {
-            const {data, error} = await getAllMessagesByContactId(action.payload);
+            const {data, pagination, error} = await getAllMessagesByContactId(action.payload);
 
             return {
                 ...prev,
+                pagination,
                 activeMessages: data,
+                error
+            };
+        }
+        case 'http/get/contact/more-messages': {
+            const { data, pagination, error } = await getAllMessagesByContactId(action.payload);
+
+            return {
+                ...prev,
+                pagination,
+                activeMessages: [...prev.activeMessages, ...data],
                 error
             };
         }

@@ -23,14 +23,15 @@ const getAllContacts = async () => {
     }
 }
 
-const getAllMessagesByContactId = async ({ id }) => {
+const getAllMessagesByContactId = async ({ id, page, pageSize }) => {
     try {
-        const response = await axios.get(SERVER_URL + `/api/chat/contact/${id}/messages`);
-        let { data } = response.data;
+        const response = await axios.get(SERVER_URL + `/api/chat/contact/${id}/messages?page=${page}&pageSize=${pageSize}`);
+        let { data, pagination } = response.data;
         data = data ? data : [];
 
         return {
             data,
+            pagination,
             error: null
         };
     } catch(error) {
@@ -39,6 +40,7 @@ const getAllMessagesByContactId = async ({ id }) => {
         }
         return {
             data: '',
+            pagination: {},
             error
         };
     }

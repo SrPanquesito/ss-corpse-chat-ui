@@ -6,6 +6,7 @@ const ImagePreviewDisplayAbsolute = () => {
     const refWrapper = useRef();
     const { showImagePreviewDisplay, positionCoordsImagePreviewDisplay: positionCoords, dataImagePreviewDisplay: images } = useAbsolute();
     const [ position, setPosition ] = useState([0,0]);
+    const [ uniqueImages, setUniqueImages ] = useState(new Set());
 
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, false);
@@ -15,7 +16,7 @@ const ImagePreviewDisplayAbsolute = () => {
     }, []);
 
     useEffect(() => {
-        // console.log(images);
+        setUniqueImages(new Set(images));
     }, [images]);
 
     useEffect(() => {
@@ -73,11 +74,12 @@ const ImagePreviewDisplayAbsolute = () => {
                 before:dark:border-t-gray-800
                 `}>
                     {
-                        images && images.length > 0 ? images.map((file) => (
-                            <div key={images.indexOf(file)}
+                        images && images.length > 0 ? 
+                        [...uniqueImages].map((image, index) => (
+                            <div key={index}
                                 className="flex flex-row justify-center items-center">
                                 <div role="img"
-                                    style={{backgroundImage: 'url(' + file + ')'}}
+                                    style={{backgroundImage: 'url(' + image + ')'}}
                                     className={`
                                         border
                                         border-sky-200

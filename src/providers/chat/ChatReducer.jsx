@@ -1,4 +1,4 @@
-import { getAllContacts, getAllMessagesByContactId, sendMessage } from './ChatActions';
+import { getAllContacts, getContactById, getAllMessagesByContactId, sendMessage } from './ChatActions';
 
 export const chatDefaultValues = {
     allContacts: [],
@@ -10,19 +10,40 @@ export const chatDefaultValues = {
     sendMessageSuccess: false,
     selectedEmoji: '',
     pagination: {},
+    paginationContacts: {},
     error: null,
 };
 
 export async function chatReducer(prev, action) {
     switch (action.type) {
         case 'http/get/contacts': {
-            const {data, error} = await getAllContacts();
+            const {data, paginationContacts, error} = await getAllContacts(action.payload);
 
             return {
                 ...prev,
                 allContacts: data,
                 contacts: data,
                 retrievedInitialContacts: true,
+                paginationContacts,
+                error
+            };
+        }
+        case 'http/get/contact': {
+            const {data, error} = await getContactById(action.payload);
+
+            return {
+                ...prev,
+                allContacts: [data, ...prev.allContacts],
+                error
+            };
+        }
+        case 'http/get/more-contacts': {
+            const {data, paginationContacts, error} = await getAllContacts(action.payload);
+
+            return {
+                ...prev,
+                allContacts: [...prev.allContacts, ...data],
+                paginationContacts,
                 error
             };
         }
@@ -76,13 +97,20 @@ export async function chatReducer(prev, action) {
             const contactIndex = prev.contacts.findIndex(contact => (contact.id === action.newMessage.senderId || contact.id === action.newMessage.receiverId));
 
             if (contactIndex !== -1) {
-                prev.contacts[contactIndex].lastMessage = action.newMessage;
+                const updatedContact = { ...prev.contacts[contactIndex], lastMessage: action.newMessage };
+                const updatedContacts = [
+                    updatedContact,
+                    ...prev.contacts.slice(0, contactIndex),
+                    ...prev.contacts.slice(contactIndex + 1)
+                ];
+
+                return {
+                    ...prev,
+                    allContacts: updatedContacts,
+                    contacts: updatedContacts
+                };
             }
-            return {
-                ...prev,
-                allContacts: [...prev.contacts],
-                contacts: [...prev.contacts]
-            };
+            return prev;
         }
         case 'set/activeContact': {
             const lastMessage = action.activeContact.lastMessage;

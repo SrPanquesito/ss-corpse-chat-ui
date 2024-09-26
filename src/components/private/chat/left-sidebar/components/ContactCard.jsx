@@ -55,8 +55,8 @@ const ContactCard = ({id, username, profilePictureUrl, onClick, activeContactId,
             role="button"
             onClick={onClick}
             className={`
-                ${id === activeContactId ? 'border-l-4 border-sky-500 bg-slate-200 dark:bg-slate-700 ' : ' '}
-                ${(msg.status === 'unseen') ? 'bg-blue-200 dark:bg-slate-900 ' : ' '}
+                ${id === activeContactId ? 'border-l-4 border-sky-500 bg-blue-200 dark:bg-slate-700 ' : ' '}
+                ${(msg.status === 'unseen') ? 'bg-blue-100 dark:bg-slate-900 ' : ' '}
                 flex items-center w-full relative
                 p-3 gap-2 
                 cursor-pointer

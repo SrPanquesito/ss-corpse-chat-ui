@@ -3,9 +3,32 @@ import { URLS } from 'utils/constants';
 
 const SERVER_URL = URLS.SERVER_BASE_URL;
 
-const getAllContacts = async () => {
+const getAllContacts = async ({ page, pageSize }) => {
     try {
-        const response = await axios.get(SERVER_URL + '/api/chat/contacts');
+        const response = await axios.get(SERVER_URL + `/api/chat/contacts?page=${page}&pageSize=${pageSize}`);
+        let { data, pagination } = response.data;
+        data = data ? data : [];
+
+        return {
+            data,
+            paginationContacts: pagination,
+            error: null
+        };
+    } catch(error) {
+        if (error?.response?.data?.data?.length > 0) {
+            error.message = `${error.response.data.data[0].msg} for field: ${error.response.data.data[0].path}`;
+        }
+        return {
+            data: [],
+            paginationContacts: {},
+            error
+        };
+    }
+}
+
+const getContactById = async ({ id }) => {
+    try {
+        const response = await axios.get(SERVER_URL + `/api/chat/contact?id=${id}`);
         const { data } = response.data;
 
         return {
@@ -88,6 +111,7 @@ const uploadSingleImageToS3 = async (payload) => {
 
 export { 
     getAllContacts,
+    getContactById,
     getAllMessagesByContactId,
     sendMessage,
     uploadSingleImageToS3

@@ -26,7 +26,7 @@ const ConversationAreaWrapper = () => {
                 }
             });
         }
-    }, [chat.activeContact?.id]);
+    }, [chat.activeContact]);
 
     useEffect(() => {
         if (socketData.newMessage) {

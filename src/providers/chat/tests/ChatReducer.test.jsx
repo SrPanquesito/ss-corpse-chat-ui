@@ -1,6 +1,6 @@
 // ChatReducer.test.js
 import { chatReducer, chatDefaultValues } from 'providers/chat/ChatReducer';
-import { getAllContacts, getAllMessagesByContactId, sendMessage } from 'providers/chat/ChatActions';
+import { getAllContacts, getContactById, getAllMessagesByContactId, sendMessage } from 'providers/chat/ChatActions';
 
 jest.mock('providers/chat/ChatActions');
 
@@ -24,11 +24,46 @@ describe('chatReducer', () => {
         expect(newState.error).toBe(null);
     });
 
+    it('should handle http/get/contacts action', async () => {
+        const mockData = { id: 1, name: 'John Doe' };
+        getContactById.mockResolvedValue({ data: mockData, error: null });
+
+        const action = { type: 'http/get/contact', payload: { id: 1 } };
+        const newState = await chatReducer(initialState, action);
+
+        expect(newState.allContacts).toEqual([mockData]);
+        expect(newState.error).toBe(null);
+    });
+
+    it('should handle http/get/more-contacts action', async () => {
+        const mockData = [{ id: 1, name: 'John Doe' }];
+        getAllContacts.mockResolvedValue({ data: mockData, error: null, paginationContacts: { currentPage: 1, totalPages: 2 } });
+
+        const action = { type: 'http/get/more-contacts', payload: { page: 1, pageSize: 3 }};
+        const newState = await chatReducer(initialState, action);
+
+        expect(newState.allContacts).toEqual(mockData);
+        expect(newState.contacts).toEqual([]);
+        expect(newState.paginationContacts).toEqual({ currentPage: 1, totalPages: 2 });
+        expect(newState.error).toBe(null);
+    });
+
     it('should handle http/get/contact/messages action', async () => {
         const mockData = [{ id: 1, message: 'Hello' }];
         getAllMessagesByContactId.mockResolvedValue({ data: mockData, error: null });
 
         const action = { type: 'http/get/contact/messages', payload: { id: 1 } };
+        const newState = await chatReducer(initialState, action);
+
+        expect(newState.activeMessages).toEqual(mockData);
+        expect(newState.error).toBe(null);
+    });
+
+    it('should handle http/get/contact/more-messages action', async () => {
+        const mockData = [{ id: 1, message: 'Hello' }];
+        getAllMessagesByContactId.mockResolvedValue({ data: mockData, error: null });
+
+        const action = { type: 'http/get/contact/more-messages', payload: { id: 1, page: 1, pageSize: 3 }};
         const newState = await chatReducer(initialState, action);
 
         expect(newState.activeMessages).toEqual(mockData);

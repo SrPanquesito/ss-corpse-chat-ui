@@ -7,7 +7,14 @@ import { socket } from 'utils/socket';
 jest.mock('utils/socket', () => ({
     socket: {
         on: jest.fn(),
-        off: jest.fn()
+        off: jest.fn(),
+        io: {
+            engine: {
+                transport: {
+                    name: 'test'
+                }
+            }
+        }
     }
 }));
 
@@ -15,6 +22,7 @@ describe('SocketProvider', () => {
     const mockSocket = socket;
 
     beforeEach(() => {
+        console.log = jest.fn();
         jest.clearAllMocks();
     });
 

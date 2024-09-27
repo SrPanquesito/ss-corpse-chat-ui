@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import ConversationAreaWrapper from 'components/private/chat/main/components/ConversationAreaWrapper';
 import { useChat, useDispatchChat } from 'providers/chat';
 import { useAuth } from 'providers/auth';
@@ -130,5 +130,29 @@ describe('ConversationAreaWrapper', () => {
             lastMessageSent: null,
         });
         render(<ConversationAreaWrapper />);
+    });
+
+    test.only('calls loadMoreMessages when scrolled to top', () => {
+        const { container } = render(<ConversationAreaWrapper />);
+        let scrollableDiv = container.querySelector('div');
+        scrollableDiv.addEventListener('scroll', () => { /* some callback */ });
+
+        // Simulate scroll event
+        fireEvent.scroll(scrollableDiv, {
+            target: {
+                scrollTop: -1,
+                scrollHeight: 100,
+                clientHeight: 100,
+            },
+        });
+
+        expect(mockDispatchChat).toHaveBeenCalledWith({
+            type: 'http/get/contact/more-messages',
+            payload: {
+                id: '1',
+                page: 2,
+                pageSize: 20,
+            },
+        });
     });
 });

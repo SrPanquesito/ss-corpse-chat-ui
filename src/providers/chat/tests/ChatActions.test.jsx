@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { 
     getAllContacts, 
+    getContactById,
     getAllMessagesByContactId, 
     sendMessage, 
     uploadSingleImageToS3 
@@ -18,7 +19,40 @@ describe('ChatActions', () => {
             const mockData = { data: [{ id: 1, name: 'John Doe' }] };
             axios.get.mockResolvedValue({ data: { data: mockData } });
 
-            const result = await getAllContacts();
+            const result = await getAllContacts({ page: 1, pageSize: 20 });
+            expect(result).toEqual({ data: mockData, error: null });
+        });
+
+        it('should return data on success but server returns empty data', async () => {
+            axios.get.mockResolvedValue({ data: { data: null } });
+
+            const result = await getAllContacts({ page: 1, pageSize: 20 });
+            expect(result).toEqual({ data: [], error: null });
+        });
+
+        it('should return error on failure', async () => {
+            const mockError = { response: { data: { data: [{ msg: 'Error', path: 'field' }] } } };
+            axios.get.mockRejectedValue(mockError);
+
+            const result = await getAllContacts({ page: 1, pageSize: 20 });
+            expect(result).toEqual({ data: [], error: mockError, paginationContacts: {} });
+        });
+
+        it('should return error on failure even if response does not bring back data', async () => {
+            const mockError = { response: { data: null } };
+            axios.get.mockRejectedValue(mockError);
+
+            const result = await getAllContacts({ page: 1, pageSize: 20 });
+            expect(result).toEqual({ data: [], error: mockError, paginationContacts: {} });
+        });
+    });
+
+    describe('getContactById', () => {
+        it('should return data on success', async () => {
+            const mockData = { data: [{ id: 1, message: 'Hello' }] };
+            axios.get.mockResolvedValue({ data: { data: mockData } });
+
+            const result = await getContactById({ id: 1 });
             expect(result).toEqual({ data: mockData, error: null });
         });
 
@@ -26,7 +60,7 @@ describe('ChatActions', () => {
             const mockError = { response: { data: { data: [{ msg: 'Error', path: 'field' }] } } };
             axios.get.mockRejectedValue(mockError);
 
-            const result = await getAllContacts();
+            const result = await getContactById({ id: 1 });
             expect(result).toEqual({ data: [], error: mockError });
         });
 
@@ -34,7 +68,7 @@ describe('ChatActions', () => {
             const mockError = { response: { data: null } };
             axios.get.mockRejectedValue(mockError);
 
-            const result = await getAllContacts();
+            const result = await getContactById({ id: 1 });
             expect(result).toEqual({ data: [], error: mockError });
         });
     });
@@ -44,31 +78,31 @@ describe('ChatActions', () => {
             const mockData = { data: [{ id: 1, message: 'Hello' }] };
             axios.get.mockResolvedValue({ data: { data: mockData } });
 
-            const result = await getAllMessagesByContactId({ id: 1 });
+            const result = await getAllMessagesByContactId({ id: 1, page: 1, pageSize: 20 });
             expect(result).toEqual({ data: mockData, error: null });
         });
 
         it('should return data on success', async () => {
             axios.get.mockResolvedValue({ data: { data: null } });
 
-            const result = await getAllMessagesByContactId({ id: 1 });
-            expect(result).toEqual({ data: [], error: null });
+            const result = await getAllMessagesByContactId({ id: 1, page: 1, pageSize: 20 });
+            expect(result).toEqual({ data: [], error: null, pagination: undefined });
         });
 
         it('should return error on failure', async () => {
             const mockError = { response: { data: { data: [{ msg: 'Error', path: 'field' }] } } };
             axios.get.mockRejectedValue(mockError);
 
-            const result = await getAllMessagesByContactId({ id: 1 });
-            expect(result).toEqual({ data: '', error: mockError });
+            const result = await getAllMessagesByContactId({ id: 1, page: 1, pageSize: 20 });
+            expect(result).toEqual({ data: '', error: mockError, pagination: {} });
         });
 
         it('should return error on failure even if response does not bring back data', async () => {
             const mockError = { response: { data: null } };
             axios.get.mockRejectedValue(mockError);
 
-            const result = await getAllMessagesByContactId({ id: 1 });
-            expect(result).toEqual({ data: '', error: mockError });
+            const result = await getAllMessagesByContactId({ id: 1, page: 1, pageSize: 20 });
+            expect(result).toEqual({ data: '', error: mockError, pagination: {} });
         });
     });
 

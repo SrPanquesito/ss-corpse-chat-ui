@@ -21,6 +21,11 @@ describe('ConversationAreaWrapper', () => {
             activeContact: { id: '1', username: 'John Doe', profilePictureUrl: 'profile.jpg' },
             activeMessages: [],
             lastMessageSent: null,
+            pagination: {
+                currentPage: 1,
+                totalPages: 3,
+                pageSize: 20,
+            }
         });
         useAuth.mockReturnValue({
             user: { id: '2' },
@@ -132,25 +137,44 @@ describe('ConversationAreaWrapper', () => {
         render(<ConversationAreaWrapper />);
     });
 
-    test.only('calls loadMoreMessages when scrolled to top', () => {
-        const { container } = render(<ConversationAreaWrapper />);
-        let scrollableDiv = container.querySelector('div');
-        scrollableDiv.addEventListener('scroll', () => { /* some callback */ });
+    test('calls loadMoreMessages when scrolled to top', () => {
+        render(<ConversationAreaWrapper />);
+        let scrollableDiv = screen.getByTestId('conversation-area-wrapper');
+        scrollableDiv.addEventListener('scroll', () => {});
 
-        // Simulate scroll event
-        fireEvent.scroll(scrollableDiv, {
-            target: {
-                scrollTop: -1,
-                scrollHeight: 100,
-                clientHeight: 100,
-            },
-        });
+        // Mock the properties of the scrollable div
+        Object.defineProperty(scrollableDiv, 'scrollTop', { value: -400, writable: true });
+        Object.defineProperty(scrollableDiv, 'scrollHeight', { value: 200, writable: true });
+        Object.defineProperty(scrollableDiv, 'clientHeight', { value: 100, writable: true });
+        fireEvent.scroll(scrollableDiv);
 
         expect(mockDispatchChat).toHaveBeenCalledWith({
             type: 'http/get/contact/more-messages',
             payload: {
                 id: '1',
                 page: 2,
+                pageSize: 20,
+            },
+        });
+    });
+
+    test('do not call loadMoreMessages if scroll has not reached top', () => {
+        render(<ConversationAreaWrapper />);
+        let scrollableDiv = screen.getByTestId('conversation-area-wrapper');
+        scrollableDiv.addEventListener('scroll', () => {});
+
+        // Mock the properties of the scrollable div
+        Object.defineProperty(scrollableDiv, 'scrollTop', { value: 0, writable: true });
+        Object.defineProperty(scrollableDiv, 'scrollHeight', { value: 200, writable: true });
+        Object.defineProperty(scrollableDiv, 'clientHeight', { value: 100, writable: true });
+        fireEvent.scroll(scrollableDiv);
+
+        // Should not call loadMoreMessages. Only mock call would only be the initial call to get messages
+        expect(mockDispatchChat).toHaveBeenCalledWith({
+            type: 'http/get/contact/messages',
+            payload: {
+                id: '1',
+                page: 1,
                 pageSize: 20,
             },
         });

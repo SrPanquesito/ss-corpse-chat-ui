@@ -55,15 +55,13 @@ const ContactsListWrapper = () => {
     };
 
     const loadMoreContacts = () => {
-        if (chat.paginationContacts?.currentPage < chat.paginationContacts?.totalPages) {
-            dispatchChat({
-                type: 'http/get/more-contacts',
-                payload: {
-                    page: chat.paginationContacts.currentPage + 1,
-                    pageSize: chat.paginationContacts.pageSize
-                }
-            });
-        }
+        dispatchChat({
+            type: 'http/get/more-contacts',
+            payload: {
+                page: chat.paginationContacts.currentPage + 1,
+                pageSize: chat.paginationContacts.pageSize
+            }
+        });
     };
 
     const handleScroll = (event) => {
@@ -79,6 +77,7 @@ const ContactsListWrapper = () => {
         <div className="w-full h-full overflow-x-hidden overflow-y-auto"
             onScroll={handleScroll}
             ref={contactsEndRef}
+            data-testid="contacts-list-wrapper"
         >
             {
                 chat.contacts && chat.contacts.length > 0 ? chat.contacts.map((contact) => 

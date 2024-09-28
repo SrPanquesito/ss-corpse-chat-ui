@@ -166,7 +166,11 @@ describe('ContactCard', () => {
     setup();
 
     const contactCardElement = screen.getByRole('button');
-    expect(contactCardElement).toHaveClass('border-l-4 border-sky-500 bg-slate-200 dark:bg-slate-700');
+    expect(contactCardElement).toHaveClass(`
+      border-l-4 border-sky-500 bg-blue-200 dark:bg-slate-700 bg-blue-100 
+      dark:bg-slate-900 flex items-center w-full relative p-3 gap-2 cursor-pointer 
+      hover:bg-slate-200 dark:hover:bg-slate-700 transition-all
+    `);
   });
 
   test('applies correct classes when message is unseen', () => {

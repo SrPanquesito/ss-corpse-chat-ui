@@ -56,16 +56,14 @@ const ConversationAreaWrapper = () => {
     }, [socketData.newMessage]);
 
     const loadMoreMessages = () => {
-        if (chat.pagination?.currentPage < chat.pagination?.totalPages) {
-            dispatchChat({
-                type: 'http/get/contact/more-messages',
-                payload: {
-                    id: chat.activeContact.id,
-                    page: chat.pagination.currentPage + 1,
-                    pageSize: chat.pagination.pageSize
-                }
-            });
-        }
+        dispatchChat({
+            type: 'http/get/contact/more-messages',
+            payload: {
+                id: chat.activeContact.id,
+                page: chat.pagination.currentPage + 1,
+                pageSize: chat.pagination.pageSize
+            }
+        });
     };
 
     const handleScroll = (event) => {
@@ -81,6 +79,7 @@ const ConversationAreaWrapper = () => {
         <div className="flex flex-col-reverse justify-start w-full h-full overflow-x-hidden overflow-y-auto px-3 py-4 gap-2"
             onScroll={handleScroll}
             ref={messagesEndRef}
+            data-testid="conversation-area-wrapper"
         >
             {
                 chat.activeMessages && chat.activeMessages.length > 0 ? chat.activeMessages.map((msg) => {

@@ -26,6 +26,15 @@ const ConversationHeaderWrapper = () => {
         }
     }, [chat.activeContact, socketData.onlineUsers]);
 
+    useEffect(() => {
+        if (chat.error?.response?.data && chat.error?.response?.status) {
+            dispatchAbsolute({ type: 'notificationalert/show', notificationAlertOptions: {
+                type: 'error',
+                message: chat.error.response.data
+            }});
+        }
+    }, [chat.error]);
+
     const onLogoutHandler = () => {
         socket.timeout(5000).emit('logout', auth.user.id);
         dispatchAuth({ type: 'auth/logout' });

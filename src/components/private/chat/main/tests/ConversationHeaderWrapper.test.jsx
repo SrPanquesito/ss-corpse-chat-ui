@@ -26,6 +26,7 @@ describe('ConversationHeaderWrapper', () => {
     beforeEach(() => {
         useChat.mockReturnValue({
             activeContact: { id: '1', username: 'John Doe', profilePictureUrl: 'profile.jpg' },
+            error: null,
         });
         useSocketData.mockReturnValue({
             onlineUsers: [{ id: '1' }],
@@ -89,5 +90,26 @@ describe('ConversationHeaderWrapper', () => {
         });
         expect(mockDispatchAbsolute).toHaveBeenCalledWith({ type: 'cleanup' });
         expect(mockNavigate).toHaveBeenCalledWith(ROUTES.LOGIN_ROUTE, { replace: true });
+    });
+
+    test('displays error notification when chat error occurs', () => {
+        const errorResponse = {
+            response: {
+                data: 'An error occurred',
+                status: 500,
+            },
+        };
+        useChat.mockReturnValueOnce({
+            activeContact: { id: '1', username: 'John Doe', profilePictureUrl: 'profile.jpg' },
+            error: errorResponse,
+        });
+        render(<ConversationHeaderWrapper />);
+        expect(mockDispatchAbsolute).toHaveBeenCalledWith({
+            type: 'notificationalert/show',
+            notificationAlertOptions: {
+                type: 'error',
+                message: 'An error occurred',
+            },
+        });
     });
 });

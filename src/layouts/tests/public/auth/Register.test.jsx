@@ -199,7 +199,7 @@ describe('Register', () => {
   test('shows error notification on registration failure', async () => {
     useAuth.mockReturnValue({
       user: null,
-      error: { message: 'Registration failed' },
+      error: { response: { data: 'Registration failed', status: 400 } },
       isAuthenticated: false,
     });
 

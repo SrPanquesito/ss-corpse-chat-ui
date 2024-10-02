@@ -27,10 +27,10 @@ const Login = () => {
                 navigate(ROUTES.CHAT_ROUTE);
             }, 2000);
         }
-        if (authenticatedError?.message) {
+        if (authenticatedError?.response?.data && authenticatedError?.response?.status) {
             dispatchAbsolute({ type: 'notificationalert/show', notificationAlertOptions: {
                 type: 'error',
-                message: authenticatedError.message
+                message: authenticatedError.response.data
             }});
         }
     }, [authenticatedError, isAuthenticated]);

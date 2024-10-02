@@ -130,7 +130,7 @@ describe('Login', () => {
   test('shows error notification on login failure', async () => {
     useAuth.mockReturnValue({
       user: null,
-      error: { message: 'Invalid credentials' },
+      error: { response: { data: 'Invalid credentials', status: 400 } },
       isAuthenticated: false,
     });
 

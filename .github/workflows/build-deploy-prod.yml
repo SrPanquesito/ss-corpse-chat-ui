@@ -35,7 +35,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: "dist=./dist"
+          context: "./dist"
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/ss-corpse-chat-ui:latest
       -

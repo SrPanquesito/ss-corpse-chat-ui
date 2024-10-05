@@ -11,21 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2 
       -
-        name: Use Node.js 18.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: 'npm'
-      -
-        name: Install npm dependencies
-        run: npm ci
-      -
-        name: Build asset using Webpack
-        run: SERVER_BASE_URL=https://server.corpsechat.com SOCKET_BASE_URL=https://ws.corpsechat.com npm run build:prod --if-present
-      - 
-        name: List contents of dist (Debugging step)
-        run: ls -R ./dist
-      -
         name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -42,8 +27,9 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/ss-corpse-chat-ui:latest
-          build-args: |
-            dist=./dist
+          secrets: |
+            SERVER_BASE_URL=https://server.corpsechat.com
+            SOCKET_BASE_URL=https://ws.corpsechat.com
       -
         name: Pull & Deploy
         env:

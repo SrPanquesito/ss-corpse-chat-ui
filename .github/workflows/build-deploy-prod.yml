@@ -22,9 +22,8 @@ jobs:
       -
         name: Build asset using Webpack
         run: SERVER_BASE_URL=https://server.corpsechat.com SOCKET_BASE_URL=https://ws.corpsechat.com npm run build:prod --if-present
-      # Debugging
       - 
-        name: List contents of dist
+        name: List contents of dist (Debugging step)
         run: ls -R ./dist
       -
         name: Login to Docker Hub
@@ -39,10 +38,12 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./dist
+          context: .
           file: ./Dockerfile
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/ss-corpse-chat-ui:latest
+          build-args: |
+            dist=./dist
       -
         name: Pull & Deploy
         env:

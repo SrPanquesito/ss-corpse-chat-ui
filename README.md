@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://corpsechat.com">
     <img src="src/assets/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -13,9 +13,9 @@
   <p align="center">
     Web chat application.
     <br />
-    Version: Monolithic Alpha.
+    Version: 1.0.0. Beta.
     <br /><br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://corpsechat.com">View Demo</a>
   </p>
 </div>
 
@@ -136,18 +136,18 @@ Icons used:
 - [x] Deploy build to AWS so we can be sure webpack migration worked
 - [x] Change react-alert for notification absolute on login and register actions
 - [x] Limit calls to BE when sending message
+- [x] Configure Eslint and Husky
+- [x] Configure Jest
+- [x] Unit tests 90% + coverage
+- [x] Form validation in Register page
+- [x] Limit calls to BE (Rate limiter)
+- [x] Other stuff
 
 ## To-Do
 
-- [ ] Configure Eslint and Husky
-- [ ] Configure Jest
-- [ ] Unit tests 90% + coverage
-- [ ] Form validation in Register page
-- [ ] Limit calls to BE in Register page
 - [ ] Form validation in Login page
-- [ ] Limit calls to BE in Login page
 - [ ] Send more than 1 image
-- [ ] File handling
+- [ ] Multi-file handling
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
@@ -190,17 +190,6 @@ Mocking modules with vite-jest is different from commonjs tests. Please read nex
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 <!-- CONTRIBUTING -->
 ## Contributing
 
@@ -219,32 +208,12 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Luis Diaz Reynoso - [@SrPanquesitos](https://x.com/SrPanquesitos)
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
+Project Link: [https://github.com/github_username/repo_name](https://corpsechat.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

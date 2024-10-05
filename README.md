@@ -213,7 +213,7 @@ Don't forget to give the project a star! Thanks again!
 
 Luis Diaz Reynoso - [@SrPanquesitos](https://x.com/SrPanquesitos)
 
-Project Link: [https://github.com/github_username/repo_name](https://corpsechat.com/)
+Project Link: [https://corpsechat.com/](https://corpsechat.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

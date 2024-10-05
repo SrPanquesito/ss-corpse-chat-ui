@@ -39,11 +39,8 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -98,51 +95,6 @@ Icons used:
 
 
 <!-- ROADMAP -->
-## Roadmap (Finished tasks)
-
-- [x] Routing and context configuration
-- [x] Tailwind configuration (Palette, fonts, etc)
-- [x] Darkmode configuration
-- [x] Configure linter
-- [x] Register page
-    - [x] CSS
-    - [x] Form handling
-    - [x] Backend connection
-- [x] Login page
-    - [x] CSS
-    - [x] Form handling
-    - [x] Backend connection
-- [x] Configure material tailwind to use alert pop-up for errors
-- [x] Protect and redirect routes
-- [x] Retrieve user data from localStorage JWT
-- [x] UI for ChatLayout and separate into components
-- [x] Move Darkmode button to Contact Details header, left side of information button
-- [x] Added emoji picker
-- [x] Display selected emoji in MessageInput
-- [x] Change jwt from localStorage to cookies
-- [x] Retrieve messages for each convo and display them
-- [x] Display images in messages
-- [x] Smooth scroll when sending message, clear input field, hide emoji picker when clicked outside component
-- [x] Show selected image before sending message (one image only for now)
-- [x] Create css bubble dialog style for image previewer
-- [x] Adjust image previewer to render absolute position according to the width of the screen
-- [x] Show last message sent (conversation list)
-- [x] Notification alert in top right side
-- [x] Logout
-- [x] Configure husky pre-commit with linter
-- [x] Fix linter errors and warnings
-- [x] Configure jest
-- [x] Migrate to webpack
-- [x] Deploy build to AWS so we can be sure webpack migration worked
-- [x] Change react-alert for notification absolute on login and register actions
-- [x] Limit calls to BE when sending message
-- [x] Configure Eslint and Husky
-- [x] Configure Jest
-- [x] Unit tests 90% + coverage
-- [x] Form validation in Register page
-- [x] Limit calls to BE (Rate limiter)
-- [x] Other stuff
-
 ## To-Do
 
 - [ ] Form validation in Login page
@@ -163,26 +115,18 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-Mocking modules with vite-jest is different from commonjs tests. Please read next information before working on tests.
-[https://github.com/sodatea/vite-jest/tree/main/packages/vite-jest#limitations-and-differences-with-commonjs-tests](https://github.com/sodatea/vite-jest/tree/main/packages/vite-jest#limitations-and-differences-with-commonjs-tests)
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/github_username/repo_name.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
-   npm install
+   npm ci
    ```
-4. Enter your API in `config.js`
+3. Enter your API in `config.js`
    ```js
    const API_KEY = 'ENTER YOUR API';
    ```

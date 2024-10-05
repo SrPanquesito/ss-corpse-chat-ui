@@ -5,13 +5,19 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY . .
 
-RUN SERVER_BASE_URL=https://server.corpsechat.com SOCKET_BASE_URL=https://ws.corpsechat.com npm run build:prod --if-present
+# Stage 2: Use build secrets to create the .env file
+RUN --mount=type=secret,id=SERVER_BASE_URL \
+    --mount=type=secret,id=SOCKET_BASE_URL \
+    sh -c 'echo "SERVER_BASE_URL=$(cat /run/secrets/SERVER_BASE_URL)" >> .env.prod && \
+            echo "SOCKET_BASE_URL=$(cat /run/secrets/SOCKET_BASE_URL)" >> .env.prod'
 
-# Stage 2: Serve the application with nginx
+RUN npm run build:prod --if-present
+
+# Stage 3: Serve the application with nginx
 FROM nginx:alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html

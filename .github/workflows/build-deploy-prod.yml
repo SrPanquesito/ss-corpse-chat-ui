@@ -1,0 +1,58 @@
+name: Build Asset and Deploy Docker Image to Production
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 
+      -
+        name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+      -
+        name: Install npm dependencies
+        run: npm ci
+      -
+        name: Build asset using Webpack
+        run: SERVER_BASE_URL=https://server.corpsechat.com SOCKET_BASE_URL=https://ws.corpsechat.com npm run build:prod --if-present
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: "dist=./dist"
+          push: true
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/ss-corpse-chat-ui:latest
+      -
+        name: Pull & Deploy
+        env:
+            PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            HOSTNAME: ${{ secrets.SSH_HOST }}
+            USER_NAME: ${{ secrets.SSH_USER_NAME }}
+      
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.SSH_USER_NAME }}@${{ secrets.SSH_HOST }} '
+              cd /home/${{ secrets.SSH_USER_NAME }}/code/ss-corpse-chat-ui &&
+              docker login -u ${{ vars.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }} &&
+              docker stop ui && docker rm ui &&
+              docker image pull ${{ vars.DOCKERHUB_USERNAME }}/ss-corpse-chat-ui:latest &&
+              docker image rm ${{ vars.DOCKERHUB_USERNAME }}/ss-corpse-chat-ui &&
+              docker image pull ${{ vars.DOCKERHUB_USERNAME }}/ss-corpse-chat-ui:latest &&
+              docker run -it --name ui --platform linux/amd64 -d -p 8082:80 ${{ vars.DOCKERHUB_USERNAME }}/ss-corpse-chat-ui
+              '
